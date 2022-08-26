@@ -181,7 +181,7 @@
                     "id": "210e8b96-12ef-462e-8926-cb1c707dfe4b",
                     "path": "<Gamepad>/rightStick/right",
                     "interactions": "",
-                    "processors": "",
+                    "processors": "Invert",
                     "groups": "",
                     "action": "Aimming",
                     "isComposite": false,
@@ -192,22 +192,11 @@
                     "id": "c5be7fd1-b602-4599-966e-8bd1853787fc",
                     "path": "<Gamepad>/rightStick/left",
                     "interactions": "",
-                    "processors": "",
+                    "processors": "Invert",
                     "groups": "",
                     "action": "Aimming",
                     "isComposite": false,
                     "isPartOfComposite": true
-                },
-                {
-                    "name": "",
-                    "id": "0e0e41df-06a0-4fe5-9cf4-96c78252f15f",
-                    "path": "<Mouse>/delta",
-                    "interactions": "",
-                    "processors": "NormalizeVector2",
-                    "groups": "",
-                    "action": "Aimming",
-                    "isComposite": false,
-                    "isPartOfComposite": false
                 }
             ]
         },
@@ -1231,6 +1220,34 @@
                     "processors": "",
                     "groups": "XR",
                     "action": "TrackedDeviceOrientation",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "Mouse",
+            "id": "407dbc29-318a-4f0a-8d55-881ea819acc7",
+            "actions": [
+                {
+                    "name": "MouseControl",
+                    "type": "Button",
+                    "id": "45bde836-1935-4a1a-9182-995f295a35c6",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "b2e218c2-cee0-4926-a051-aa31d0ae6943",
+                    "path": "<Mouse>/delta",
+                    "interactions": "",
+                    "processors": "NormalizeVector2",
+                    "groups": "",
+                    "action": "MouseControl",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

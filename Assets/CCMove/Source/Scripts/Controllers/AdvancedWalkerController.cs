@@ -145,7 +145,7 @@ namespace CMF
 		{
 			HandleJumpKeyInput();
 			
-			LedgeRayCheck();
+			
 
 
 			
@@ -411,15 +411,7 @@ namespace CMF
 				return ControllerState.Jumping;
 			}
 
-			if(currentControllerState == ControllerState.LedgeIdle)
-			{
-				return ControllerState.LedgeIdle;
-			}
-
-			if (currentControllerState == ControllerState.ZipLining)
-			{
-				ZipLining();
-			}
+	
 
 			return ControllerState.Falling;
 		}
@@ -774,80 +766,16 @@ namespace CMF
 
 		}
 
-		//rework and rename
-		public void ledgetest()
-        {
-			IsGrabbingLedge();
-			movementSpeed = 0;
-			CC_Rigid.isKinematic = true;
-			currentControllerState = ControllerState.LedgeIdle;
-			//CharAnimator.SetBool("LedgeGrabbed", true);
-			JumpsLeft = NumberOfJumps;
-		}
-		//this whole thing is a mess, probably will need to be fixed up heavily later
-		public GameObject RaycastDwnOffset, RaycastFwdOffset;
-		public float LedgeRaycastFwdLength, LedgeRaycastDwnLength;
-
-		public void LedgeRayCheck()
-		{
-			RaycastHit hit1;
-			RaycastHit hit2;
-
-			if (Physics.Raycast(RaycastFwdOffset.transform.position, RaycastFwdOffset.transform.forward, out hit1, LedgeRaycastFwdLength) 
-				&& Physics.Raycast(RaycastDwnOffset.transform.position, -Vector3.up, out hit2, LedgeRaycastDwnLength) 
-				&& currentControllerState == ControllerState.Falling || Physics.Raycast(RaycastFwdOffset.transform.position, RaycastFwdOffset.transform.forward, out hit1, LedgeRaycastFwdLength)
-				&& Physics.Raycast(RaycastDwnOffset.transform.position, -Vector3.up, out hit2, LedgeRaycastDwnLength)
-				&& currentControllerState == ControllerState.Rising)
-            {
-				if(hit1.transform.gameObject.layer == GrabbableLedge)
-                {
-					if(hit2.transform.gameObject.layer == GrabbableLedge)
-                    {
-						//IsGrabbingLedge();
-						CharAnimator.SetBool("LedgeGrabbed", true);
-						ledgetest();
-						//LedgeClimb.instance.InitiateClimb();
-						print("Shockingly works");
-					}
-
-				}
-                
-				//print("Current forward rotation: " + hit1.transform.rotation);
-				Debug.DrawRay(RaycastFwdOffset.transform.position, RaycastFwdOffset.transform.forward * LedgeRaycastFwdLength, Color.cyan);
-			}
-
-			if (Physics.Raycast(RaycastDwnOffset.transform.position, -Vector3.up, out hit2, LedgeRaycastDwnLength))
-			{
-				//print("Found an object - distance: " + hit2.distance);
-				Debug.DrawRay(RaycastDwnOffset.transform.position, -Vector3.up * LedgeRaycastDwnLength, Color.white);
-			}
-
-			//Debug.DrawRay(CC_Capsule.transform.position + LedgeRaycastFwdOffset, transform.forward * 50, Color.cyan);
-			//Debug.DrawRay(CC_Capsule.transform.position + LedgeRaycastDwnOffset, CC_Capsule.transform.TransformDirection(Vector3.down) * 50, Color.white);
-		}
 
 
-		public bool IsZipLining()
-        {
-			return (currentControllerState == ControllerState.ZipLining);
-		}
+		
 
 
 
 
 
 
-		public void ZipLining()
-        {
-			movementSpeed = 0;
-			CC_Rigid.useGravity = false;
-			CC_Rigid.isKinematic = true;
-			JumpsLeft = NumberOfJumps;
-			momentum = Vector3.zero;
-			OnGroundContactRegained();
 
-
-		}
 
 
 

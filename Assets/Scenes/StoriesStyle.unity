@@ -2439,8 +2439,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 470191987}
-  m_LocalRotation: {x: -0.24821143, y: 0.5379812, z: -0.16955744, w: -0.7875389}
-  m_LocalPosition: {x: 31.770864, y: 24.869658, z: -12.402739}
+  m_LocalRotation: {x: -0.24819887, y: 0.53798145, z: -0.16954766, w: -0.78754485}
+  m_LocalPosition: {x: 31.773031, y: 24.869658, z: -12.403822}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -9743,6 +9743,8 @@ MonoBehaviour:
   AimInput: {x: 0, y: 0}
   VerticalAim: 0
   HorizontalAim: 0
+  AimAmount: 0
+  DodgeDirection: {x: 0, y: 0, z: 0}
   Shoot_Right_Input: 0
   Shoot_Left_Input: 0
   BT_Input: 0
@@ -9971,10 +9973,6 @@ MonoBehaviour:
   ModelRoot: {fileID: 445032694251105324}
   currentControllerState: 0
   cameraTransform: {fileID: 448379463587353622}
-  RaycastDwnOffset: {fileID: 1491109433}
-  RaycastFwdOffset: {fileID: 695260153}
-  LedgeRaycastFwdLength: 2
-  LedgeRaycastDwnLength: 1
 --- !u!95 &562214580931031736
 Animator:
   serializedVersion: 4
@@ -10100,9 +10098,15 @@ MonoBehaviour:
   CharAnimator: {fileID: 562214580931031736}
   DelayIFrames: 0.2
   IFramesDur: 0.5
-  DodgeCoolDown: 0.7
-  RollDistance: 50
+  DodgeCoolDown: 1
+  ActCoolDown: 0
+  RollDistance: 500
   isDodge: 0
+  VerticalAim: 0
+  HorizontalAim: 0
+  scriptsToDisable:
+  - {fileID: 562214580931031739}
+  - {fileID: 562214580931031735}
 --- !u!1 &636585090329718701
 GameObject:
   m_ObjectHideFlags: 0

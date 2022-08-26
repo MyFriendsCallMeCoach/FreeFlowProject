@@ -17,13 +17,13 @@ public class DodgeRoll : MonoBehaviour
     public float IFramesDur = 0.5f;
 
     public float DodgeCoolDown = 1f;
-    private float ActCoolDown;
+    public float ActCoolDown;
 
     public float RollDistance = 3f;
 
     public bool isDodge = false;
 
-    float VerticalAim, HorizontalAim;
+    public float VerticalAim, HorizontalAim;
 
     private void Awake()
     {
@@ -53,31 +53,60 @@ public class DodgeRoll : MonoBehaviour
 
         if(ActCoolDown <= 0f && AdvancedWalkerController.instance.currentControllerState == AdvancedWalkerController.ControllerState.Grounded)
         {
+            
             CharAnimator.ResetTrigger("Dodge");
-            if(CMF.CharacterDefaultInput.instance.Dodge_Input == true)
-            {
-                
-                Dodge();
-                FreeflowCombat.instance.StopAttacking();
-            }
+              
+            Dodge();
+            
         }
         else
         {
+            EnableScripts();
             ActCoolDown -= Time.deltaTime;
         }
     }
 
     void Dodge()
     {
-        //Vector3 _velocity = Vector3.zero;
-        ActCoolDown = DodgeCoolDown;
-        //Health.Invincible(DelayIFrames, IFramesDur)
+        if(VerticalAim >= 0.5 || VerticalAim <= -0.5 || VerticalAim <= -0.5 || VerticalAim >= 0.5 || HorizontalAim >= 0.5 || HorizontalAim <= -0.5 || HorizontalAim <= -0.5 || HorizontalAim >= 0.5)
+        {
+            FreeflowCombat.instance.StopAttacking();
+            //Vector3 _velocity = Vector3.zero;
+            ActCoolDown = DodgeCoolDown;
+            //Health.Invincible(DelayIFrames, IFramesDur)
+            DisableScripts();
+            MeshTrail.instance.PlayerMeshTrail();
+            //controller.AddMomentum(new Vector3(HorizontalAim,0, VerticalAim).normalized * RollDistance);//TurnTowardControllerVelocity.instance.tr.forward * RollDistance);
+
+            controller.transform.Translate(CharacterDefaultInput.instance.DodgeDirection * RollDistance * Time.deltaTime);
 
 
-        controller.AddMomentum(new Vector3(HorizontalAim,0, VerticalAim).normalized * RollDistance);//TurnTowardControllerVelocity.instance.tr.forward * RollDistance);
-
-        CharAnimator.SetTrigger("Dodge");
+            CharAnimator.SetTrigger("Dodge");
+        }
+        
     }
+
+    [Tooltip("Add the scripts you want to disable when attacking and they will be automatically re-enabled. You will most probably have to add your movement script.")]
+    public MonoBehaviour[] scriptsToDisable;
+
+    // method for reenabling the disabled scripts during attacking
+    void EnableScripts()
+    {
+        foreach (var script in scriptsToDisable)
+        {
+            script.enabled = true;
+        }
+    }
+
+    // method for disabling all set scripts in preparation for attacking
+    void DisableScripts()
+    {
+        foreach (var script in scriptsToDisable)
+        {
+            script.enabled = false;
+        }
+    }
+
 
 }
 

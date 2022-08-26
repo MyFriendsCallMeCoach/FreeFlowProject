@@ -50,7 +50,7 @@ public class PlayerLedgeChecker : MonoBehaviour
 
             AdvancedWalkerController.instance.CharAnimator.SetBool("LedgeGrabbed", true);
 
-            AdvancedWalkerController.instance.ledgetest();
+            //AdvancedWalkerController.instance.ledgetest();
 
             TurnTowardControllerVelocity.instance.tr.localRotation = HandPostion.rotation;
             TurnTowardControllerVelocity.instance.enabled = false;

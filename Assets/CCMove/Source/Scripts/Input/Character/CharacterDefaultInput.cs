@@ -33,6 +33,7 @@ namespace CMF
         public float VerticalAim;
         public float HorizontalAim;
         public float AimAmount;
+        public Vector3 DodgeDirection;
 
         /*[Header("Weapon Wheel")]
         public Vector2 WWInput;
@@ -67,19 +68,14 @@ namespace CMF
             //anim_Manager = GetComponent<Anim_Manager>();
             //CC = GetComponent<P_Movement>();
             //Cursor.lockState = CursorLockMode.Locked;
+            AimInput.y = Mathf.Clamp(AimInput.y, -1, 1);
+            AimInput.x = Mathf.Clamp(AimInput.x, -1, 1);
         }
 
-        /* private void Update()
+         private void Update()
          {
-             if(GunSystem_R.Instance.isActiveAndEnabled)
-             {
-                 RightHandEquipped = true;
-             }
-             else
-             {
-                 RightHandEquipped = false;
-             }
-         }*/
+            HandleAimInput();
+         }
 
         private void OnEnable()
         {
@@ -146,7 +142,7 @@ namespace CMF
         {
             HandleMovementInput();
             HandlePause();
-            HandleDodgeInput();
+            //HandleDodgeInput();
             HandleAimInput();
 
             /*if (WeaponWheel.instance.OnOff == false)
@@ -171,9 +167,19 @@ namespace CMF
         {
             VerticalAim = AimInput.y;
             HorizontalAim = AimInput.x;
+
+            AimInput.y = Mathf.Clamp(AimInput.y, -1, 1);
+            AimInput.x = Mathf.Clamp(AimInput.x, -1, 1);
+
+           
+
+            HorizontalAim = Mathf.Clamp(HorizontalAim, -1, 1);
+            VerticalAim = Mathf.Clamp(VerticalAim, -1,1);
+
             AimAmount = Mathf.Clamp01(Mathf.Abs(HorizontalAim) + Mathf.Abs(VerticalAim));
-            //anim_Manager.UpdateAnimatorValues(HorizontalMovement, VerticalMovement, CC.isSprinting);
-            //CharacterInput.GetVerticalMovementInput();
+
+            DodgeDirection = new Vector3(VerticalAim, 0, HorizontalAim);
+
         }
 
         private void HandleMovementInput()
@@ -181,8 +187,7 @@ namespace CMF
             VerticalMovement = MovementInput.y;
             HorizontalMovement = MovementInput.x;
             MoveAmount = Mathf.Clamp01(Mathf.Abs(HorizontalMovement) + Mathf.Abs(VerticalMovement));
-            //anim_Manager.UpdateAnimatorValues(HorizontalMovement, VerticalMovement, CC.isSprinting);
-            //CharacterInput.GetVerticalMovementInput();
+
         }
 
         private void HandleDodgeInput()
